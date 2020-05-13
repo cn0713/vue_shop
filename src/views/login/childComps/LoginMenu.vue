@@ -24,69 +24,69 @@
 
 <script>
 export default {
-  name: "LoginMenu",
+  name: 'LoginMenu',
   data() {
     return {
       // 这是登录表单的数据绑定对象
       loginForm: {
-        username: "admin",
-        password: "123456"
+        username: 'admin',
+        password: '123456'
       },
       // 这是表单的验证规则
       loginFormRules: {
         // 用户名验证规则
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 10, message: "长度在 3 到 10 个字符", trigger: "blur" }
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
         // 密码验证规则
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur" }
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       }
-    };
+    }
   },
   methods: {
     // 点击重置表单
     resetLoginForm() {
       // resetFields是element-ui中重置表单的方法，可以在官网中的Form组件中查看
-      this.$refs.loginFormRef.resetFields();
+      this.$refs.loginFormRef.resetFields()
     },
     // 点击登录按钮
     login() {
       // validate 表单预验证
       this.$refs.loginFormRef.validate(async valid => {
         // 如果valid返回false就跳出比选项
-        if (!valid) return;
+        if (!valid) return
         // {data:res} ：将返回的数据中的data赋给res
-        const { data: res } = await this.$http.post("login", this.loginForm);
+        const { data: res } = await this.$http.post('login', this.loginForm)
         // 判断返回的状态码是否等于200,这里使用了element-ui中的消息提示方法
         if (res.meta.status !== 200) {
           this.$message({
             showClose: true,
-            message: "错了哦，这是一条错误消息",
-            type: "error"
-          });
+            message: '错了哦，这是一条错误消息',
+            type: 'error'
+          })
         } else {
           this.$message({
             showClose: true,
-            message: "恭喜你登录成功",
-            type: "success"
-          });
+            message: '恭喜你登录成功',
+            type: 'success'
+          })
           /**
            * 1.将登录客户端的 token保存到客户端的 sessionStorage 中
            *   1.1 项目中除了登录之外的其他API接口，必须登录之后才能访问
            *   1.2 token只因在当前网页打开期间生效，所以将 token 保存在sessionStorage中
            */
-          window.sessionStorage.setItem("token", res.data.token);
+          window.sessionStorage.setItem('token', res.data.token)
           // 2.通过编程式导航跳转到后台主页，路由地址是 /home
-          this.$router.push("/home");
+          this.$router.push('/home')
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

@@ -13,15 +13,13 @@
 import LoginLogo from './childComps/LoginLogo'
 import LoginMenu from './childComps/LoginMenu'
 
-  export default {
-    name:'Login',
-    components:{
-      LoginLogo,
-      LoginMenu
-    }
-      
-    
+export default {
+  name: 'Login',
+  components: {
+    LoginLogo,
+    LoginMenu
   }
+}
 </script>
 
 <style lang="less" scoped>
