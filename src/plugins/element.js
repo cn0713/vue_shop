@@ -5,7 +5,6 @@ import {
     FormItem,
     Input,
     Message,
-
 } from 'element-ui'
 
 Vue.use(Button)
