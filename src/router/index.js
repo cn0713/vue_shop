@@ -6,13 +6,21 @@ const Login = () =>
     import ('@/views/login/Login.vue')
 const Home = () =>
     import ('@/views/home/Home')
+const Welcome = () =>
+    import ('@/views/home/childComps/Welcome')
+const Users = () =>
+    import ('../views/home/childComps/Users.vue')
+const Roles = () =>
+    import ('../views/home/childComps/Roles.vue')
+
+
 
 Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
         // 设置重定向页面，默认显示的页面
-        redirect: "/login"
+        redirect: "login"
     },
     {
         path: '/login',
@@ -20,7 +28,22 @@ const routes = [{
     },
     {
         path: '/home',
-        component: Home
+        component: Home,
+        // 重定向路径
+        redirect: '/welcome',
+        children: [{
+                path: '/welcome',
+                component: Welcome
+            },
+            {
+                path: '/users',
+                component: Users
+            },
+            {
+                path: '/roles',
+                component: Roles
+            },
+        ]
     }
 ]
 
