@@ -1,7 +1,5 @@
 import Vue from 'vue'
-<<<<<<< HEAD
-import { Button, Form, FormItem, Input, Message, } from 'element-ui'
-=======
+
 import {
     Button,
     Form,
@@ -28,9 +26,12 @@ import {
     Pagination,
     Dialog,
     MessageBox,
+    Tag,
+    Tree,
+    Select,
+    Option,
 
 } from 'element-ui'
->>>>>>> login
 
 Vue.use(Button)
 Vue.use(Form)
@@ -55,7 +56,10 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
-
+Vue.use(Tag)
+Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm;

@@ -54,7 +54,12 @@
             </el-tooltip>
             <!-- 分配角色 -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="allotUser(scope.row)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -113,12 +118,20 @@
         <el-button type="primary" @click="editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 分配角色的对话框 -->
+    <users-allot :allowUserList="allowUserList" :allotDialogVisible="allotDialogVisible" @closeAllot="closeAllot"></users-allot>
   </div>
 </template>
 
 <script>
+import UsersAllot from './childComps/UsersAllot'
+
 export default {
   name: 'Users',
+  components: {
+    UsersAllot
+  },
   data() {
     // 设置邮箱自定义验证
     var checkEmail = (rule, value, callback) => {
@@ -185,7 +198,11 @@ export default {
       // 查询用户表单数据
       editForm: {},
       // 控制修改对话框的显示和隐藏
-      editDialogVisible: false
+      editDialogVisible: false,
+      // 控制分配角色对话框的显示和隐藏
+      allotDialogVisible: false,
+      // 保存分配角色的数据
+      allowUserList:{}
     }
   },
   created() {
@@ -198,10 +215,11 @@ export default {
         params: this.queryInfo
       })
       if (res.meta.status !== 200) {
-        return this.$message.error('获取用户列表失败')
+        return this.$message.error('获取用户列表失败！')
       }
       this.usersList = res.data.users
       this.total = res.data.total
+      this.$message.success('获取用户列表成功！')
       // console.log(res)
     },
     // 监听 pageSize 改变的事件
@@ -306,11 +324,22 @@ export default {
         return this.$message.info('已取消删除')
       } else {
         // 发送删除用户的网络请求
-        const {data:res} = await this.$http.delete('users/'+ id)
-        if(res.meta.status !== 200) return this.$message.error('删除失败')
+        const { data: res } = await this.$http.delete('users/' + id)
+        if (res.meta.status !== 200) return this.$message.error('删除失败')
         this.getUsersList()
         this.$message.success(res.meta.msg)
       }
+    },
+    // 点击按钮,显示对话框
+    allotUser(row) {
+      this.allowUserList = row
+      this.allotDialogVisible = true
+      
+      
+    },
+    // 点击按钮,关闭对话框
+    closeAllot(flag) {
+      this.allotDialogVisible = false
     }
   }
 }

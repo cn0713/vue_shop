@@ -21,6 +21,9 @@ axios.interceptors.request.use(config => {
     // axios添加到Vue原型中
 Vue.prototype.$http = axios
 
+// 创建一个中央事件总线
+Vue.prototype.$bus = new Vue()
+
 Vue.config.productionTip = false
 
 new Vue({
