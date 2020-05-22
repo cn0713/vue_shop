@@ -52,7 +52,6 @@ export default {
       if (res.meta.status !== 200)
         return this.$message.error('获取角色列表失败!')
       this.rolesList = res.data
-      this.$message.success('获取角色列表成功!')
     },
     // 点击按钮,分配角色
     async saveRoleInfo(){
