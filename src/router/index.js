@@ -22,6 +22,8 @@ const GoodsList = () =>
     import ('@/views/home/goods/List')
 const GoodsAdd = () =>
     import ('@/views/home/goods/GoodsAdd')
+const Order = () =>
+    import ('@/views/home/order/Order')
 
 Vue.use(VueRouter)
 
@@ -70,6 +72,10 @@ const routes = [{
             {
                 path: '/goods/add',
                 component: GoodsAdd
+            },
+            {
+                path: '/orders',
+                component: Order
             },
         ]
     }
