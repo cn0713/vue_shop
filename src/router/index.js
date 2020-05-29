@@ -42,7 +42,7 @@ const routes = [{
         path: '/home',
         component: Home,
         // 重定向路径
-        redirect: '/welcome',
+        redirect: '/users',
         children: [{
                 path: '/welcome',
                 component: Welcome

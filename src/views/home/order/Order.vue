@@ -94,7 +94,14 @@
 
     <!-- 物流对话框 -->
     <el-dialog title="物流信息" :visible.sync="progressVisible" width="50%">
-      <span>这是一段信息</span>
+      <!-- 时间线 -->
+      <el-timeline>
+        <el-timeline-item
+          v-for="(item, i) in progressInfo"
+          :key="i"
+          :timestamp="item.time"
+        >{{item.context}}</el-timeline-item>
+      </el-timeline>
     </el-dialog>
   </div>
 </template>
@@ -189,14 +196,16 @@ export default {
       })
     },
     // 点击按钮,弹出物流信息的对话框
-    showProgress() {
-      this.$http.get('/kuaidi/1106975712662').then(res => {
-        this.progressInfo = res.data
-        console.log(this.progressInfo);
-        
-      })
+    async showProgress() {
+      const {data:res} = await this.$http.get('/kuaidi/1106975712662')
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取物流信息失败！')
+      }
+      this.progressInfo = res.data
+      console.log(this.progressInfo);
+      
       this.progressVisible = true
-    },
+    }
   }
 }
 </script>
